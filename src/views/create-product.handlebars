@@ -1,0 +1,27 @@
+<form id="formCreateProduct" method="post" action="http://localhost:8080/api/products" enctype="multipart/form-data">
+  <h2>Product Creator</h2>
+  <label for="title">Title:</label><br>
+  <input type="text" id="title" name="title"><br>
+  <label for="description">Description:</label><br>
+  <textarea id="description" name="description"></textarea><br>
+  <label for="category">Category:</label><br>
+  <div class="input-box">
+      <select name="category" id="category" required>
+        <option value="Toys">Toys</option>
+        <option value="Sports">Sports</option>
+        <option value="Vehicles">Vehicles</option>
+        <option value="Shoes">Shoes</option>
+      </select>
+    </div>
+  <label for="stock">Stock:</label><br>
+  <input type="number" id="stock" name="stock"><br>
+  <label for="price">Price:</label><br>
+  <input type="number" id="price" name="price"><br>
+  <label for="thumbnail">Image:</label><br>
+  <input type="file" id="thumbnail" name="thumbnail" accept="image/*"><br>
+  <img id="imagePreview" src="" alt="Image Preview" style="display: none; max-width: 200px; margin-top: 10px;"><br>
+  <input type="submit" value="Submit">
+</form>
+
+<script src="/js/create-product.js"></script>
+<link rel="stylesheet" href="/css/create-product.css">

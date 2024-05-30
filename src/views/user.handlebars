@@ -1,0 +1,9 @@
+<form action="/api/users/{{user._id}}/premium" method="put">
+  <h1>{{user.full_name}}</h1>
+  <p>{{user.email}}</p>
+  <select id="role" name="role">
+    <option value="PREMIUM">Premium</option>
+    <option value="USER">User</option>
+  </select>
+  <button type="submit">Submit</button>
+</form>

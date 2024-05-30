@@ -1,0 +1,232 @@
+paths:
+  /api/products:
+    get:
+      security:
+        - cookieAuth: []
+      summary: Get a list of products
+      tags:
+        - Products
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+          description: Number of products to return
+        - in: query
+          name: pageQuery
+          schema:
+            type: integer
+            default: 1
+          description: Page number to return
+        - in: query
+          name: sort
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+          description: Sort order based on price
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "60d21b4667d0d8992e610c85"
+                        title:
+                          type: string
+                          example: "Product Title"
+                        description:
+                          type: string
+                          example: "Product Description"
+                        price:
+                          type: number
+                          example: 19.99
+                        category:
+                          type: string
+                          example: "Electronics"
+                  hasPrevPage:
+                    type: boolean
+                    example: true
+                  hasNextPage:
+                    type: boolean
+                    example: true
+                  prevPage:
+                    type: integer
+                    example: 1
+                  nextPage:
+                    type: integer
+                    example: 3
+                  page:
+                    type: integer
+                    example: 2
+        '500':
+          description: Error obtaining the products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error obtaining the products.
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The title of the product
+                  example: 'New Product'
+                description:
+                  type: string
+                  description: The description of the product
+                  example: 'This is a great product.'
+                stock:
+                  type: integer
+                  description: The stock quantity of the product
+                  example: 100
+                price:
+                  type: number
+                  format: float
+                  description: The price of the product
+                  example: 19.99
+                category:
+                  type: string
+                  description: The category of the product
+                  example: 'Electronics'
+                thumbnail:
+                  type: string
+                  format: binary
+                  description: The thumbnail image of the product
+      responses:
+        '200':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Product created.
+        '500':
+          description: Error creating product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error creating product.
+      security:
+        - cookieAuth: []
+  
+  /api/products/{pid}:
+    get:
+      security:
+        - cookieAuth: []
+      summary: Get a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            example: "665877b8a1bb6ceb9a87db6e"
+          description: The product ID
+      responses:
+        '200':
+          description: A product object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "60d21b4667d0d8992e610c85"
+                  title:
+                    type: string
+                    example: "Product Title"
+                  description:
+                    type: string
+                    example: "Product Description"
+                  price:
+                    type: number
+                    example: 19.99
+                  category:
+                    type: string
+                    example: "Electronics"
+        '500':
+          description: Error obtaining the product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error obtaining the product.
+    delete:
+      summary: Delete a product by ID
+      security:
+        - cookieAuth: []
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            example: "60d21b4667d0d8992e610c85"
+          description: The product ID
+      responses:
+        '200':
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The product was removed successfully.
+        '500':
+          description: Error removing the product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error removing the product.
+    
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: cookieToken
+

@@ -1,0 +1,218 @@
+paths:
+  /api/carts/{cid}:
+    get:
+      security:
+      - cookieAuth: []
+      summary: Get a cart by ID
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            example: "66588efb893910a1fb5ef417"
+          description: The cart ID
+      responses:
+        '200':
+          description: A cart object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "60d21b4667d0d8992e610c85"
+                        title:
+                          type: string
+                          example: "Product Title"
+                        price:
+                          type: number
+                          example: 19.99
+                        quantity:
+                          type: integer
+                          example: 2
+                        thumbnail:
+                          type: string
+                          example: "http://localhost:8080/uploads/products/image.jpg"
+        '500':
+          description: Error getting the cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error getting the cart.
+  /api/carts/{cid}/products/{pid}:
+    post:
+      security:
+      - cookieAuth: []
+      summary: Add a product to a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            example: "66588efb893910a1fb5ef417"
+          description: The cart ID
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            example: "665877b8a1bb6ceb9a87db6e"
+          description: The product ID
+      responses:
+        '200':
+          description: Product added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Product added.
+        '500':
+          description: Error adding the product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Product adding error.
+    delete:
+      security:
+      - cookieAuth: []
+      summary: Delete a product from a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            example: "66588efb893910a1fb5ef417"
+          description: The cart ID
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            example: "665877b8a1bb6ceb9a87db6e"
+          description: The product ID
+      responses:
+        '200':
+          description: Product deleted from the cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Product deleted from the cart successfully.
+        '500':
+          description: Error removing the product from the cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Cart or product not found.
+  /api/carts/{cid}/products:
+    delete:
+      security:
+      - cookieAuth: []
+      summary: Delete all products from a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            example: "66588efb893910a1fb5ef417"
+          description: The cart ID
+      responses:
+        '200':
+          description: All products deleted from the cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: All products deleted from the cart successfully.
+        '500':
+          description: Error removing products from the cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error obtaining cart or deleting the products.
+
+  /api/carts/{cid}/purchase:
+    post:
+      security:
+        - cookieAuth: []
+      summary: Purchase items in a cart
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            example: "66588efb893910a1fb5ef417"
+          description: The cart ID
+      responses:
+        '200':
+          description: Purchase successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Purchase successfully.
+        '500':
+          description: Error during purchase
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error during purchase.  
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: cookieToken

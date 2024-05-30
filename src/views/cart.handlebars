@@ -1,0 +1,27 @@
+<div class="cart-container">
+    {{#if products}}
+    {{#each products}}
+    <div class="product-card">
+        <img class="product-image" src="{{this.thumbnail}}" alt="Image not found">
+        <div class="product-info">
+            <h3 class="product-title">{{this.title}}</h3>
+            <div class="product-prices">
+                <h4 class="product-price">${{this.price}}</h4>
+                <h4 class="product-quantity">x{{this.quantity}}</h4>
+            </div>
+        </div>
+        <button class="deleteProductBtn" data-product-id="{{this.id}}">X</button>
+    </div>
+    {{/each}}
+    <input type="hidden" id="cartId" value="{{user.cartId._id}}">
+    <div class="button-container">
+        <button class="deleteProductsBtn">Delete all products</button>
+        <button type="submit" class="purchase-btn">Purchase</button>
+    </div>
+    </form>
+    {{else}}
+    <p class="no-products-message">Nothing to buy</p>
+    {{/if}}
+</div>
+<script src="/js/carts.js"></script>
+<link rel="stylesheet" href="/css/cart.css">

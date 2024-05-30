@@ -1,0 +1,26 @@
+/api/sessions/generateToken:
+    post:
+      summary: Generate a JWT token
+      tags:
+        - Security
+      responses:
+        '200':
+          description: Token generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '500':
+          description: Error generating token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error generating token.

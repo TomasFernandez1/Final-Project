@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eCommerce</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="icon" href="data:,">
+</head>
+
+<body>
+  <input type="hidden" id="userRole" value="{{user.role}}">
+  {{#if user}}
+  <nav id="navbar" class="navbar">
+    <h1 class="data">Email: {{user.email}} - Role: {{user.role}}</h1>
+    <div class="buttons">
+      <button class="btn-logout" id="btn-logout">LOGOUT</button>
+      <button class="btn-home" id="btn-home">HOME</button>
+      <button class="btn-delete-users" id="btn-delete-users">Delete users</button>
+      <button class="btn-create-product" id="btn-create-product">Create product</button>
+      <button class='btn-go-cart'><a href='/api/carts/{{user.cartId._id}}'
+          style='color: inherit; text-decoration: none;'>Go to cart</a></button>
+    </div>
+  </nav>
+  {{else}}
+  <nav id="navbar" class="navbar">
+    <button class="btn-home" id="btn-home">HOME</button>
+  </nav>
+  {{/if}}
+  {{{body}}}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/main.js"></script>
+</body>
+<link rel="stylesheet" href="/css/main.css">
+</html>

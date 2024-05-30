@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #4070f4;
+  margin: 0;
+  padding: 0;
+}
+.data{
+  color: white;
+}
+
+.navbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px;
+background-color: #23527c;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+z-index: 1000;
+}
+
+.navbar h1 {
+margin: 0;
+}
+
+.buttons {
+display: flex;
+align-items: center;
+}
+
+.buttons button {
+margin: 0 10px;
+}
+
+.navbar h1 {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#content {
+  padding-top: 60px;
+}
+
+.btn-home,
+.btn-logout,
+.btn-delete-users,
+.btn-create-product,
+.btn-go-cart {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-home,
+.btn-logout {
+  background-color: white;
+  color: black;
+
+}
+
+.btn-home:hover,
+.btn-logout:hover {
+  background-color: #333;
+  color: white;
+}
+
+.btn-delete-users {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.btn-delete-users:hover {
+  background-color: #c0392b;
+}
+
+.btn-create-product {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.btn-create-product:hover {
+  background-color: #3e8e41;
+}
+
+.btn-go-cart {
+  background-color: #2196F3;
+  color: #fff;
+}
+
+.btn-go-cart:hover {
+  background-color: #23527c;
+}

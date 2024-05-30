@@ -1,0 +1,138 @@
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-card {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #111;
+    border-radius: 10px;
+    background-color: #fff; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.product-info {
+    margin-left: 20px;
+}
+
+.product-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.product-prices {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: green;
+    margin-bottom: 10px;
+}
+
+.product-quantity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.quantity-label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #111;
+    margin-right: 10px;
+}
+
+.quantity-value {
+    font-weight: bold;
+    font-size: 16px;
+    color: #111;
+}
+
+.deleteProductBtn {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.deleteProductBtn:hover {
+    background-color: #c0392b;
+}
+
+.deleteProductsBtn {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.deleteProductsBtn:hover {
+    background-color: #c0392b;
+}
+
+.purchase-btn {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.purchase-btn:hover {
+    background-color: #3e8e41;
+}
+
+.no-products-message {
+    font-size: 18px;
+    color: #666;
+    margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.deleteProductsBtn,.purchase-btn {
+    margin: 10px;
+}
