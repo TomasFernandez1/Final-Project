@@ -7,7 +7,6 @@ const { login, logout, register,recoveryPasswordEmail, recoveryPassword, generat
 export default class sessionRouter extends RouterClass {
   init() {
     
-    // --------------- POST --------------- //
     this.post("/login", ["PUBLIC"], passportCall("login"), login);
     this.post("/register", ["PUBLIC"], passportCall("register"), register);
     this.post("/recovery-password",["PUBLIC"], recoveryPasswordEmail);

@@ -9,31 +9,31 @@ body {
   margin: 0;
   padding: 0;
 }
-.data{
+.data {
   color: white;
 }
 
 .navbar {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px;
-background-color: #23527c;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #23527c;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .navbar h1 {
-margin: 0;
+  margin: 0;
 }
 
 .buttons {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .buttons button {
-margin: 0 10px;
+  margin: 0 10px;
 }
 
 .navbar h1 {
@@ -52,7 +52,9 @@ margin: 0 10px;
 .btn-logout,
 .btn-delete-users,
 .btn-create-product,
-.btn-go-cart {
+.btn-go-cart,
+.btn-users,
+.btn-upload-documents {
   display: inline-block;
   margin: 0 10px;
   padding: 10px 20px;
@@ -64,14 +66,17 @@ margin: 0 10px;
 }
 
 .btn-home,
-.btn-logout {
+.btn-logout,
+.btn-users,
+.btn-upload-documents {
   background-color: white;
   color: black;
-
 }
 
 .btn-home:hover,
-.btn-logout:hover {
+.btn-logout:hover,
+.btn-users:hover,
+.btn-upload-documents:hover {
   background-color: #333;
   color: white;
 }
@@ -95,10 +100,10 @@ margin: 0 10px;
 }
 
 .btn-go-cart {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: #fff;
 }
 
 .btn-go-cart:hover {
-  background-color: #23527c;
+  background-color: #0a6ebe;
 }

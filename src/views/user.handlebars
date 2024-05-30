@@ -1,9 +1,21 @@
-<form action="/api/users/{{user._id}}/premium" method="put">
-  <h1>{{user.full_name}}</h1>
-  <p>{{user.email}}</p>
-  <select id="role" name="role">
-    <option value="PREMIUM">Premium</option>
-    <option value="USER">User</option>
-  </select>
-  <button type="submit">Submit</button>
-</form>
+<form id="premiumForm">
+    <div class="wrapper">
+      <div class="user-info">
+        <h1 class="user-full_name">Name: {{userPage.first_name}} {{userPage.last_name}}</h1>
+        <p class="user-email">Email: {{userPage.email}}</p>
+      </div>
+      <div class="role-select">
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+          <option value="PREMIUM">Premium</option>
+          <option value="USER">User</option>
+        </select>
+      </div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+  <input type="hidden" id="userId" value="{{userPage._id}}">
+
+<script src="/js/user.js"></script>
+
+<link rel="stylesheet" href="/css/user.css">

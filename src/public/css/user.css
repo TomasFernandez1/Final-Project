@@ -1,0 +1,59 @@
+.wrapper {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Información del usuario */
+ .user-info {
+    margin-bottom: 20px;
+  }
+
+ .user-full_name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+
+ .user-email {
+    font-size: 16px;
+    color: #666;
+  }
+
+  /* Select de roles */
+ .role-select {
+    margin-bottom: 20px;
+  }
+
+ .role-select label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+
+ .role-select select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+
+  /* Botón de submit */
+  button[type="submit"] {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #23527c;
+  }

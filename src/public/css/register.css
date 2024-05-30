@@ -63,6 +63,15 @@ form .input-box input{
   border-color: #4070f4;
 }
 
+.input-box select {
+  width: 100%; 
+  padding: 10px; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  margin-bottom: 15px; 
+}
+
 form .policy{
   display: flex;
   align-items: center;

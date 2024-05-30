@@ -1,6 +1,6 @@
 import RouterClass from './router.js'
 import ProductsController from '../controllers/products.controller.js'
-import {uploadDocuments} from '../utils/multer.js';
+import {uploadFiles} from '../utils/multer.js';
 
 const { getProduct, getProducts, newProduct, deleteProduct } = new ProductsController()
 
@@ -10,7 +10,7 @@ export default class productsRouter extends RouterClass {
     this.get('/create-product', ['ADMIN', 'PREMIUM'], (req, res) =>
       res.render('create-product', { user: req.user })
     )
-
+    
     // Products view
     this.get('/', ['USER', 'PREMIUM', 'ADMIN'], getProducts)
 
@@ -18,16 +18,10 @@ export default class productsRouter extends RouterClass {
     this.get('/:pid', ['USER', 'PREMIUM', 'ADMIN'], getProduct)
 
     // New product endpoint
-    this.post('/', ['ADMIN', 'PREMIUM'], uploadDocuments.single('thumbnail'), newProduct)
+    this.post('/', ['ADMIN', 'PREMIUM'], uploadFiles.single('thumbnail'), newProduct)
 
     // Delete product endpoint
     this.delete('/:pid', ['ADMIN', 'PREMIUM'], deleteProduct)
 
-    /*
-    // Update product endpoint
-    this.put('/:pid', ['ADMIN', 'PREMIUM'], updateProduct)
-
-    // Delete product endpoint
-    this.delete('/:pid', ['ADMIN', 'PREMIUM'], deleteProduct)*/
   }
 }

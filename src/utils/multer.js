@@ -50,7 +50,7 @@ export const deleteDocuments = (filePath) => {
     console.error(`Error removing the file: ${err}`);
   }
 };
-export const uploadDocuments = multer({
+export const uploadFiles = multer({
   storage,
   onError: function (err, next) {
     console.log(err)

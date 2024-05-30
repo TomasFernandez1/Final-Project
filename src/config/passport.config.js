@@ -50,6 +50,7 @@ export const initializePassport = () => {
             email,
             password: hashedPassword,
             role,
+            documents: [],
             cartId: await cartService.create(),
           }
           const createdUser = await userService.createUser(newUser)

@@ -36,7 +36,7 @@ export default class UsersController {
       }
       req.logger.info('Users controller - Successfully obtained the user.')
       user.full_name = user.first_name + ' ' + user.last_name
-      res.render('user', { user })
+      res.render('user', { user: req.user, userPage:user })
     } catch (error) {
       req.logger.error(`Users controller - Error: ${error}`)
       res.sendServerError(error)
@@ -48,15 +48,28 @@ export default class UsersController {
       const { uid } = req.params
       const { role } = req.body
       const user = await this.service.getById(uid)
+
       if (!user) {
         req.logger.error('User not found')
         res.sendServerError('User not found')
       }
-      await userService.updateUser(uid, { role })
 
-      res.redirect('/api/users')
+      const requiredTypes = ['identity', 'myAddress', 'myAccount']
+      const requiredDocs = requiredTypes.every((type) =>
+        user.documents.some((doc) => doc.docType.includes(type))
+      );
+
+      if (role === 'PREMIUM') {
+        if (requiredDocs) {
+          await userService.updateUser(uid, { role })
+          return res.sendSuccess(`User role updated to ${role}`)
+        } else {
+          return res.sendServerError('The user needs to upload documents to be premium.')
+        }
+      }
+      return res.sendSuccess(`User role updated to ${role}`)
     } catch (error) {
-      console.log(error)
+      req.logger.error(`Error: ${error}`)
       res.sendServerError(error)
     }
   }
@@ -85,6 +98,38 @@ export default class UsersController {
       })
     } catch (error) {
       console.error(`Users controller - Error: ${error}`)
+    }
+  }
+
+  uploadDocuments = async (req, res) => {
+    try {
+      const { uid } = req.params
+      const files = req.files
+
+      if (files) {
+        files.forEach(async (file) => {
+          await userService.updateUser(
+            uid,
+            {
+              $addToSet: {
+                documents: {
+                  name: file.filename,
+                  reference: file.destination,
+                  docType: file.fieldname
+                }
+              }
+            }
+          )
+        })
+        return res.sendSuccess(`This files was uploaded: ${files.map(
+          (file) => ` ${file.fieldname}`
+        )}`)
+      } else {
+        return res.sendServerError('Error trying to upload files')
+      }
+    } catch (error) {
+      req.logger.error(error)
+      res.sendServerError(`User controller - Error: ${error}`)
     }
   }
 

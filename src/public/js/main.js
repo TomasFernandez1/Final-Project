@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupButtonEvent('btn-delete-users', handleDeleteUsers)
   setupDeleteUsersButton(role)
   setupCreateProductButton(role)
+  setupUsersButton(role)
+  setupUpdateDocumentButton(role)
   hideHomeButton()
 })
 
@@ -75,6 +77,36 @@ function setupCreateProductButton(role) {
     } else {
       createProductButton.addEventListener('click', () => {
         window.location.href = '/api/products/create-product'
+      })
+    }
+  } else {
+    console.warn('Create product button not found')
+  }
+}
+
+function setupUsersButton(role) {
+  const userListButton = document.getElementById('btn-users')
+  if (userListButton) {
+    if (role === 'USER') {
+      userListButton.style.display = 'none'
+    } else {
+      userListButton.addEventListener('click', () => {
+        window.location.href = '/api/users'
+      })
+    }
+  } else {
+    console.warn('Create product button not found')
+  }
+}
+
+function setupUpdateDocumentButton(role) {
+  const updateDocumentButton = document.getElementById('btn-upload-documents')
+  if (updateDocumentButton) {
+    if (role === 'ADMIN') {
+      updateDocumentButton.style.display = 'none'
+    } else {
+      updateDocumentButton.addEventListener('click', () => {
+        window.location.href = '/api/users/upload-documents'
       })
     }
   } else {

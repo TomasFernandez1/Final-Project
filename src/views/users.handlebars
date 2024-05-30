@@ -1,11 +1,15 @@
-<div class='container'>
+<div class="container">
   <h1>USERS</h1>
   {{#each users}}
-      <div class="wrapper">
-        <h2 class='user-full_name'>Name: {{this.first_name}} {{this.last_name}}</h2>
-        <p class='user-email'>Email: {{this.email}}</p>
-        <p class='user-role'>Role: {{this.role}}</p>
-        <button class="btn-edit-user"><a href='/api/users/{{this._id}}' style='color: inherit; text-decoration: none;'>EDIT</a></button>
-        </div>
+    <div class="wrapper">
+      <div class="user-info">
+        <h2 class="user-full_name">Name: {{this.first_name}} {{this.last_name}}</h2>
+        <p class="user-email">Email: {{this.email}}</p>
+        <p class="user-role">Role: {{this.role}}</p>
+      <button class="btn-edit-user"><a href='/api/users/{{this._id}}' style='color: inherit; text-decoration: none;'>EDIT</a></button>
+      </div>
+    </div>
   {{/each}}
 </div>
+
+  <link rel="stylesheet" href="/css/usersList.css">
