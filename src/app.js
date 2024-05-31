@@ -55,7 +55,6 @@ const specs = swaggerJsDocs(swaggerOptions)
 app.use('/api', appRouter)
 app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
-// --------------- Redirect root to /login --------------- //
 app.get('/', (req, res) => {
   res.redirect('/login')
 })
