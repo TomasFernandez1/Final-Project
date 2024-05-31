@@ -3,24 +3,29 @@
   <form enctype="multipart/form-data" id="uploadForm">
     <div class="input-box">
       <label class="form-label" for="identityInput">Identity</label>
-      <input name="identity" type="file" class="form-control" aria-label="Identity document" />
+      <input name="identity" type="file" class="form-control" aria-label="Identity document" id="identityInput" />
+      <img class="image-preview" id="identityPreview" src="" alt="Identity preview" style="display: none;">
     </div>
     <div class="input-box">
       <label class="form-label" for="myAddressInput">My address</label>
-      <input name="myAddress" type="file" class="form-control" aria-label="My address document" />
+      <input name="myAddress" type="file" class="form-control" aria-label="My address document" id="myAddressInput" />
+      <img class="image-preview" id="myAddressPreview" src="" alt="My address preview" style="display: none;">
     </div>
     <div class="input-box">
       <label class="form-label" for="myAccountInput">Statement of account</label>
-      <input name="myAccount" type="file" class="form-control" aria-label="Statement of account document" />
+      <input name="myAccount" type="file" class="form-control" aria-label="Statement of account document" id="myAccountInput" />
+      <img class="image-preview" id="myAccountPreview" src="" alt="Statement of account preview" style="display: none;">
     </div>
     <div class="input-box">
       <label class="form-label" for="profileInput">Profile picture</label>
-      <input name="profile" type="file" class="form-control" aria-label="Profile picture" />
+      <input name="profile" type="file" class="form-control" aria-label="Profile picture" id="profileInput" />
+      <img class="image-preview" id="profilePreview" src="" alt="Profile picture preview" style="display: none;">
     </div>
     <div class="input-box button">
       <button type="submit" class="btn btn-success">Upload Documents</button>
     </div>
     <input type="hidden" id="userId" value="{{user._id}}">
   </form>
-    <script src="/js/uploadDocuments.js"></script>
+  <script src="/js/upload-documents.js"></script>
+  <link rel="stylesheet" href="/css/upload-documents.css">
 </section>

@@ -87,7 +87,7 @@ function setupCreateProductButton(role) {
 function setupUsersButton(role) {
   const userListButton = document.getElementById('btn-users')
   if (userListButton) {
-    if (role === 'USER') {
+    if (role !== 'ADMIN') {
       userListButton.style.display = 'none'
     } else {
       userListButton.addEventListener('click', () => {

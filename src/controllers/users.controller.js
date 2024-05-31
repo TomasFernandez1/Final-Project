@@ -1,5 +1,7 @@
 import { userService } from '../repositories/index.js'
 import { sendEmail } from '../utils/sendMail.js'
+import {deleteDocuments} from '../utils/multer.js';
+import path from 'path';
 
 export default class UsersController {
   constructor() {
@@ -36,7 +38,7 @@ export default class UsersController {
       }
       req.logger.info('Users controller - Successfully obtained the user.')
       user.full_name = user.first_name + ' ' + user.last_name
-      res.render('user', { user: req.user, userPage:user })
+      res.render('user', { user: req.user, userPage: user })
     } catch (error) {
       req.logger.error(`Users controller - Error: ${error}`)
       res.sendServerError(error)
@@ -57,14 +59,16 @@ export default class UsersController {
       const requiredTypes = ['identity', 'myAddress', 'myAccount']
       const requiredDocs = requiredTypes.every((type) =>
         user.documents.some((doc) => doc.docType.includes(type))
-      );
+      )
 
       if (role === 'PREMIUM') {
         if (requiredDocs) {
           await userService.updateUser(uid, { role })
           return res.sendSuccess(`User role updated to ${role}`)
         } else {
-          return res.sendServerError('The user needs to upload documents to be premium.')
+          return res.sendServerError(
+            'The user needs to upload documents to be premium.'
+          )
         }
       }
       return res.sendSuccess(`User role updated to ${role}`)
@@ -78,7 +82,7 @@ export default class UsersController {
     try {
       const { docs } = await this.service.getUsers()
       docs.forEach(async (element) => {
-        const { last_connection, role} = element
+        const { last_connection, role } = element
         const differenceInDays = this.calculateTime(last_connection)
         if (differenceInDays > 2 || role !== 'ADMIN') {
           sendEmail({
@@ -107,23 +111,32 @@ export default class UsersController {
       const files = req.files
 
       if (files) {
-        files.forEach(async (file) => {
-          await userService.updateUser(
-            uid,
-            {
-              $addToSet: {
-                documents: {
-                  name: file.filename,
-                  reference: file.destination,
-                  docType: file.fieldname
-                }
-              }
-            }
+        const user = await userService.getById(uid)
+
+        for (const file of files) {
+          const existingDocIndex = user.documents.findIndex(
+            (doc) => doc.docType === file.fieldname
           )
-        })
-        return res.sendSuccess(`This files was uploaded: ${files.map(
-          (file) => ` ${file.fieldname}`
-        )}`)
+          const existingDoc = user.documents[existingDocIndex];
+          if (existingDocIndex !== -1) {
+            const filePath = path.join(existingDoc.reference, existingDoc.name);
+            deleteDocuments(`${filePath}`)
+            user.documents.splice(existingDocIndex, 1)
+          }
+          user.documents.push({
+            name: file.filename,
+            reference: file.destination,
+            docType: file.fieldname
+          })
+        }
+
+        await userService.updateUser(uid, { documents: user.documents })
+
+        return res.sendSuccess(
+          `These files were uploaded: ${files.map(
+            (file) => ` ${file.fieldname}`
+          )}`
+        )
       } else {
         return res.sendServerError('Error trying to upload files')
       }

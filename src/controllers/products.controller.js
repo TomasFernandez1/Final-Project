@@ -65,7 +65,7 @@ export default class ProductsController {
       newProduct.thumbnail = `http://localhost:8080/uploads/products/${req.file.filename}`
       const result = await this.service.createProduct(newProduct)
       req.logger.info('Product controller - New product created.')
-      return res.sendSuccess('Product created. ID: '+ result._id)
+      return res.sendSuccess('Product created. ID: '+ result._id) // Para saber el ID y usarlo en la documentación
     } catch (error) {
       req.logger.error(`Product controller - ${error}`)
       res.sendServerError(`Error creating product.`)

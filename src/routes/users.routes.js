@@ -24,7 +24,7 @@ export default class usersRouter extends RouterClass {
     this.post(
       '/:uid/documents',
       ['USER', 'PREMIUM', 'ADMIN'],
-      uploadFiles.array('identity', 'myAddress', 'myAccount'),
+      uploadFiles.any(),
       uploadDocuments
     )
 
