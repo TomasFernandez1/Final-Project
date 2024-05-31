@@ -74,9 +74,6 @@ function showResponseMessage(response, responseJson, successMessage) {
       showConfirmButton: true,
       timer: 1500
     });
-    setTimeout(() => {
-      window.location.replace('/api/products');
-    }, 2000);
   } else {
     Swal.fire({
       icon: 'error',

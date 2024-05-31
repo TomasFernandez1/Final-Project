@@ -1,6 +1,7 @@
 import { Router } from "express";
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
+import {userService} from '../repositories/index.js';
 
 export default class RouterClass {
   constructor() {
@@ -34,7 +35,7 @@ export default class RouterClass {
   };
 
   // Policies: [ 'PUBLIC' ] [ 'USER' ] ['ADMIN' ]
-  handlePolicies = (policies) => (req, res, next) => {
+  handlePolicies = (policies) => async (req, res, next) => {
    try {
     if (policies[0] === "PUBLIC") return next();
     
@@ -49,7 +50,10 @@ export default class RouterClass {
       req.logger.error('Router Policies - Role not authorized')
       return res.status(404).json({payload : 'Role not authorized'})
     }
-
+    
+    const {role} = await userService.getById(user._id)
+    console.log(role);
+    user.role = role
     req.user = user;
     return next();
    } catch (error) {

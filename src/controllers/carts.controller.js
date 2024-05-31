@@ -110,21 +110,24 @@ export default class cartController {
             (await cartService.deleteProductCart(cart, productId))
       })
 
-      const totalAmount = buyProducts.reduce(
-        (acc, item) => acc + item.quantity,
-        0
-      )
-
       if (!buyProducts.length) {
+        const titles = insufficientStock.map((prod) => prod.title).join(', ')
+
+        insufficientStock.forEach(async (prod) => {
+          await this.service.deleteProductCart(cart._id, prod._id)
+        })
         req.logger.error(
-          'Cart controller - Insufficient stock in these products: ' +
-            insufficientStock.map((prod) => prod._id).join(', ')
+          'Cart controller - Insufficient stock in these products: ' + titles
         )
         return res.sendServerError(
-          'Insufficient stock in these products: ' +
-            insufficientStock.map((prod) => prod._id).join(', ')
+          'Insufficient stock in these products: ' + titles
         )
       }
+
+      const totalAmount = buyProducts.reduce(
+        (accumulator, item) => accumulator + item.product.price,
+        0
+      )
 
       let ticket = {}
       if (buyProducts.length > 0) {
@@ -137,7 +140,7 @@ export default class cartController {
         html: `
       <h1>Ticket</h1>
       <p>Hello ${req.user.full_name}</p>
-      <p>Thanks for your purchase</p> 
+      <p>Thanks for your purchase</p>
       <p>Total pay: $${ticket.amount} </p>
       <p>Code: ${ticket.code}</p>`
       })

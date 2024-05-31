@@ -1,7 +1,7 @@
 import { userService } from '../repositories/index.js'
 import { sendEmail } from '../utils/sendMail.js'
-import {deleteDocuments} from '../utils/multer.js';
-import path from 'path';
+import { deleteDocuments } from '../utils/multer.js'
+import path from 'path'
 
 export default class UsersController {
   constructor() {
@@ -71,6 +71,7 @@ export default class UsersController {
           )
         }
       }
+      await userService.updateUser(uid, { role })
       return res.sendSuccess(`User role updated to ${role}`)
     } catch (error) {
       req.logger.error(`Error: ${error}`)
@@ -117,9 +118,9 @@ export default class UsersController {
           const existingDocIndex = user.documents.findIndex(
             (doc) => doc.docType === file.fieldname
           )
-          const existingDoc = user.documents[existingDocIndex];
+          const existingDoc = user.documents[existingDocIndex]
           if (existingDocIndex !== -1) {
-            const filePath = path.join(existingDoc.reference, existingDoc.name);
+            const filePath = path.join(existingDoc.reference, existingDoc.name)
             deleteDocuments(`${filePath}`)
             user.documents.splice(existingDocIndex, 1)
           }

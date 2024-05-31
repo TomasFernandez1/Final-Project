@@ -1,7 +1,7 @@
 import { productService } from '../repositories/index.js'
 import { deleteDocuments } from '../utils/multer.js'
 import { extractRelativePath } from '../utils/utils.js'
-import {sendEmail} from '../utils/sendMail.js';
+import { sendEmail } from '../utils/sendMail.js'
 
 export default class ProductsController {
   constructor() {
@@ -19,6 +19,11 @@ export default class ProductsController {
       }
       const { docs, hasPrevPage, hasNextPage, prevPage, nextPage, page } =
         await this.service.getProduct(limit, pageQuery, sort)
+      docs.forEach((p) => {
+        if (p.stock === 0) {
+          this.service.updateProduct(p._id, { isActive: false })
+        }
+      })
       req.logger.info('Product controller - Products obtained successfully')
       res.render('products', {
         products: docs,
@@ -65,7 +70,7 @@ export default class ProductsController {
       newProduct.thumbnail = `http://localhost:8080/uploads/products/${req.file.filename}`
       const result = await this.service.createProduct(newProduct)
       req.logger.info('Product controller - New product created.')
-      return res.sendSuccess('Product created. ID: '+ result._id) // Para saber el ID y usarlo en la documentación
+      return res.sendSuccess('Product created. ID: ' + result._id) // Para saber el ID y usarlo en la documentación
     } catch (error) {
       req.logger.error(`Product controller - ${error}`)
       res.sendServerError(`Error creating product.`)
@@ -90,16 +95,22 @@ export default class ProductsController {
           })
           await this.service.deleteProduct(pid)
           deleteDocuments(pathImage)
-          req.logger.info('Product controller - The product was removed successfully')
+          req.logger.info(
+            'Product controller - The product was removed successfully'
+          )
           return res.sendSuccess('The product was removed successfully')
         } catch (error) {
-          req.logger.error('Product controller - Error removing the product: ' + error)
+          req.logger.error(
+            'Product controller - Error removing the product: ' + error
+          )
           return res.sendServerError('Product controller - Error: ' + error)
         }
       }
       await this.service.deleteProduct(pid)
       deleteDocuments(pathImage)
-      req.logger.info('Product controller - The product was removed successfully')
+      req.logger.info(
+        'Product controller - The product was removed successfully'
+      )
       return res.sendSuccess('The product was removed successfully')
     } catch (error) {
       req.logger.error('Product controller - Error removing the product.')

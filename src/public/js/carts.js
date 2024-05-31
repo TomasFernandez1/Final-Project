@@ -28,6 +28,18 @@ function initializePurchaseButton(cartId) {
           setTimeout(() => {
             window.location.replace('/api/products')
           }, 2000)
+        }else{ 
+            Swal.fire({
+              icon: 'error',
+              title: responseJson.payload,
+              html: '<b>Error insufficient stock</b>',
+              showConfirmButton: false,
+              timer: 2000
+            })
+            setTimeout(() => {
+              window.location.replace(`/api/carts/${cartId}/`)
+            }, 2000)
+          
         }
       } catch (error) {}
     })
