@@ -40,13 +40,12 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 
 const swaggerOptions = {
-  definition :{
-      openapi: '3.0.1',
-      info: {
-          title: 'Documentation of eCommerce',
-          description: 'Description App eCommerce'
-      },
-      
+  definition: {
+    openapi: '3.0.1',
+    info: {
+      title: 'Documentation of eCommerce',
+      description: 'Description App eCommerce'
+    },
   },
   apis: [`${__dirname}/docs/**/*.yaml`]
 }
@@ -55,9 +54,14 @@ const specs = swaggerJsDocs(swaggerOptions)
 
 app.use('/api', appRouter)
 app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
+
+// --------------- Redirect root to /login --------------- //
+app.get('/', (req, res) => {
+  res.redirect('/login')
+})
+
 app.use('/', viewsRouter.getRouter())
 
 app.listen(config.PORT, () => {
   console.log('Listening port: ' + config.PORT)
 })
-
